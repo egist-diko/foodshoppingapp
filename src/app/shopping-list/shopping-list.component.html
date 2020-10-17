@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-xs-10">
+        <shopping-edit></shopping-edit>
+        <hr>
+        <ul class="list-group ">
+            <li 
+                class="list-group-item " 
+                style="cursor: pointer;"
+                [editable]="editPressed"
+                appListItem
+                *ngFor="let ingedient of ingredients let i = index"
+                (click)="onClicked(ingedient)">
+                <div class="col-sm-1">
+                    {{ ingedient.name }}
+                </div> 
+                <div class="col-sm-1">
+                    ({{ ingedient.amount }}) 
+                </div>
+                <form 
+                (ngSubmit)="onSaved(i,f)" 
+                #f="ngForm">
+                    <label 
+                        [ngStyle]="{'visibility':editPressed === true ? 'visible' : 'hidden' }"
+                    >Name</label>
+                    <input 
+                        ngModel
+                        name="name"
+                        type="text"
+                        required
+                        [ngStyle]="{'visibility':editPressed === true ? 'visible' : 'hidden' }"
+                    >
+                    <label 
+                        [ngStyle]="{'visibility':editPressed === true ? 'visible' : 'hidden' }"
+                    >Amount</label>
+                    <input
+                        type="text" 
+                        ngModel
+                        name="amount"
+                        required
+                        [ngStyle]="{'visibility':editPressed === true ? 'visible' : 'hidden' }"
+                    >
+                    <button 
+                        class="btn btn-success pull-right "
+                        style="height: 30px; width: 50px;"
+                        type="submit"
+                        [disabled]="!f.valid"
+                        [ngStyle]="{'visibility':editPressed === true ? 'visible' : 'hidden' }"
+                    >Save</button>
+                </form> 
+            </li>
+            <button 
+                class="btn btn-primary pull-right "
+                style="height: 30px; width: 50px;"
+                (click)="onEdit()">Edit</button>
+        </ul>
+    </div>
+</div>
